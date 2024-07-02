@@ -1,23 +1,20 @@
 // built-ins
 import { Route } from '@tanstack/router';
 
-// material ui components
-import Container from '@mui/material/Container';
+import * as Styles from '../shared/DesignSystem/DesignSystem.styles';
+
 
 // enums
 import Routes from '~constants/routes.enum';
-
-// features
-import WelcomeCard from '~features/WelcomeCard';
 
 // routes
 import { rootRoute } from 'src/App';
 
 function Home() {
   return (
-    <Container maxWidth={false} sx={{ display: 'flex', height: '100vh', placeContent: 'center' }}>
-      <WelcomeCard title="Home Page" />
-    </Container>
+      <Styles.Container>
+        <p>Home route</p>
+      </Styles.Container>
   );
 }
 
