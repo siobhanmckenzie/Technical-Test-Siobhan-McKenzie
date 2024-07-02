@@ -1,0 +1,10 @@
+#!/bin/sh
+
+concurrently \
+  --kill-others-on-fail \
+  --names "Check Scripts,Check Styles,Check Formats,Check Types" \
+  --prefix-colors "bgRed.bold,bgBlue.bold,bgYellow.bold,bgCyan.bold" \
+  "npm:lint:scripts --silent" \
+  "npm:lint:styles --silent" \
+  "npm:format --silent" \
+  "npm:lint:ts --silent"

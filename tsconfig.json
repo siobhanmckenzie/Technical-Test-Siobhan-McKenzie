@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "baseUrl": ".",
+    "paths": {
+      "~components/*": ["./src/components/*"],
+      "~assets/*": ["./src/assets/*"],
+      "~configs/*": ["./src/configs/*"],
+      "~layouts/*": ["./src/layouts/*"],
+      "~pages/*": ["./src/pages/*"],
+      "~features/*": ["./src/features/*"],
+      "~constants/*": ["./src/constants/*"],
+      "~helpers/*": ["./src/helpers/*"],
+      "~libs/*": ["./src/libs/*"]
+    },
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "types": ["cypress", "@testing-library/cypress", "vite-plugin-svgr/client", "vitest"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    ".eslintrc.cjs",
+    "commitlint.config.cjs",
+    "cypress.config.ts",
+    "vite.config.ts",
+    ".prettierrc.cjs",
+    "postcss.config.cjs",
+    "tailwind.config.cjs",
+    "src",
+    "cypress"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

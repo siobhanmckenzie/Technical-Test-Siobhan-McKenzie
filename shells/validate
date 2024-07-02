@@ -1,0 +1,10 @@
+#!/bin/sh
+
+concurrently \
+  --kill-others-on-fail \
+  --names "Lints,Build,Unit Test,Test Component" \
+  --prefix-colors "yellow.bold,bgGreen.bold,bgCyan.bold" \
+  "npm:lint --silent" \
+  "npm:build --silent" \
+  "npm:test --silent" \
+  "npm:cy:run:component --silent"
