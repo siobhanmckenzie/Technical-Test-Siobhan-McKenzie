@@ -4,7 +4,7 @@ import specificUrls from 'src/urls';
 import Routes from '~constants/routes.enum';
 import Home from '~pages/Home';
 import NotFound from '~pages/NotFound';
-import Transcripts from '~pages/Transcripts';
+import { Transcripts } from '~pages/Transcripts/index';
 
 export const rootRoute = new RootRoute({ component: App });
 

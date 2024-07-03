@@ -7,7 +7,7 @@ const theme: DefaultTheme = {
     TEXT: '#272E35',
     GRAY: '#F1F3F4',
     DARK_GRAY: '#595959',
-    LIGHTGRAY: '#D9D9D9',
+    LIGHT_GRAY: '#D9D9D9',
     BLACK: '#000000',
   },
 };

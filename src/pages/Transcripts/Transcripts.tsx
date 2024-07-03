@@ -1,48 +1,16 @@
 import { useMatch } from '@tanstack/router';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Styles from './Transcripts.styles';
+import useTranscript from './hooks/useTranscript';
+import { Block } from './types';
 
-interface Block {
-  start: number;
-  end: number;
-  text: string;
-}
-
-interface Transcript {
-  title: string;
-  blocks: Block[];
-  audioUrl: string;
-}
-
-const Transcripts: React.FC = () => {
+const Transcripts = () => {
   const match = useMatch({ from: '/transcripts/$id' });
   const { id } = match.params as { id: string };
 
-  const [transcript, setTranscript] = useState<Transcript>({ title: '', blocks: [], audioUrl: '' });
+  const { transcript, loading, error } = useTranscript(id);
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  // potential extension - jump to the scrubbed transcript as it's often down out of sight
-
-  useEffect(() => {
-    const fetchTranscript = async () => {
-      try {
-        const response = await fetch(`https://frontend-challenge-backend.vercel.app/api/transcripts/${id}`);
-        if (response.ok) {
-          const data: Transcript = await response.json();
-          setTranscript(data);
-        } else {
-          console.error('Invalid ID or fetch error');
-        }
-      } catch (error) {
-        console.error('Error fetching transcript:', error);
-      }
-    };
-
-    if (id) {
-      fetchTranscript();
-    }
-  }, [id]);
 
   useEffect(() => {
     const handleTimeUpdate = () => {
@@ -69,19 +37,16 @@ const Transcripts: React.FC = () => {
     }
   }, []);
 
-  // could make these into helpers as no longer using react-howler
+  if (loading) return <TranscriptsSkeleton />;
+  if (error) return <p>{error}</p>; // this should be caught be the router error boundary - probably shouldnt surface the error itself
 
   return (
     <Styles.Container>
       <Styles.TranscriptContainer>
         <h1>{transcript.title}</h1>
-        {transcript.blocks.map((block, index) => (
-          <Styles.Block // needs refactoring
-            key={index}
-            $isCurrent={currentTime >= block.start && currentTime < block.end}
-            onClick={() => handleBlockClick(block.start)}
-          >
-            {block.text}
+        {transcript.blocks.map((block: Block, index: number) => (
+          <Styles.Block key={index} onClick={() => handleBlockClick(block.start)}>
+            <Styles.HighlightedSpan $isCurrent={currentTime >= block.start && currentTime < block.end}>{block.text}</Styles.HighlightedSpan>
           </Styles.Block>
         ))}
       </Styles.TranscriptContainer>
@@ -105,6 +70,21 @@ const Transcripts: React.FC = () => {
         ) : (
           <p>No audio available</p> // this should be handled by the router
         )}
+      </Styles.AudioContainer>
+    </Styles.Container>
+  );
+};
+
+const TranscriptsSkeleton = () => {
+  return (
+    <Styles.Container>
+      <Styles.TranscriptSkeletonContainer>
+        {[0, 1, 2, 3, 4].map((_, index) => (
+          <Styles.Skeleton key={index} />
+        ))}
+      </Styles.TranscriptSkeletonContainer>
+      <Styles.AudioContainer>
+        <Styles.Skeleton />
       </Styles.AudioContainer>
     </Styles.Container>
   );
