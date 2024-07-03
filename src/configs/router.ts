@@ -1,15 +1,38 @@
-// built-ins
-import { Router } from '@tanstack/router';
+import { RootRoute, Route, Router } from '@tanstack/router';
+import App from 'src/App';
+import specificUrls from 'src/urls';
+import Routes from '~constants/routes.enum';
+import Home from '~pages/Home';
+import NotFound from '~pages/NotFound';
+import Transcripts from '~pages/Transcripts';
 
-// routes
-import { rootRoute } from 'src/App';
-import { homeRoute, notFoundRoute } from '~pages/Home';
-import { transcriptsRoute } from '~pages/Transcripts';
+export const rootRoute = new RootRoute({ component: App });
 
-// Create the route tree using your routes
+const homeRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: Routes.HOME,
+  component: Home,
+});
+
+const transcriptsRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/transcripts/$id',
+  component: Transcripts,
+  loader: async ({ params }) => {
+    if (!specificUrls.includes(params.id)) {
+      throw new Error('404'); // need to wire this up with the actual 404 component not fallback error boundary
+    }
+  },
+});
+
+const notFoundRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: Routes.NOT_FOUND,
+  component: NotFound,
+});
+
 const routeTree = rootRoute.addChildren([homeRoute, transcriptsRoute, notFoundRoute]);
 
-// Create the router using your route tree
 const router = new Router({ routeTree });
 
 export default router;

@@ -1,8 +1,8 @@
 enum Routes {
   HOME = '/',
   ABOUT = '/about',
-  NOT_FOUND = '/*', // handle this more gracefully
-  TRANSCRIPTS = '/transcripts', // need to handle 3 URLS scalably
+  TRANSCRIPTS = '/transcripts/$id',
+  NOT_FOUND = '/*',
 }
 
 export default Routes;

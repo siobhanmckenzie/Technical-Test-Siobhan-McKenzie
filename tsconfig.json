@@ -32,13 +32,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    ".eslintrc.cjs",
-    "commitlint.config.cjs",
-    "vite.config.ts",
-    ".prettierrc.cjs",
-    "postcss.config.cjs",
-    "src",
-  ],
+  "include": [".eslintrc.cjs", "commitlint.config.cjs", "vite.config.ts", ".prettierrc.cjs", "postcss.config.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
