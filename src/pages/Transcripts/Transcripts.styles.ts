@@ -26,46 +26,20 @@ export const Container = styled.div`
   height: 100vh;
 `;
 
-export const TranscriptContainer = styled.div`
+export const TranscriptSkeletonContainer = styled.div`
   padding: 24px;
   overflow-y: auto;
-`;
-
-export const TranscriptSkeletonContainer = styled(TranscriptContainer)`
   display: grid;
   align-content: start;
   gap: 12px;
 `;
 
-export const AudioContainer = styled.div`
+export const AudioSkeletonContainer = styled.div`
+  // there is some duplication here - would preferably be in a shared styles file
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px;
+  padding: 8px 16px;
   background-color: ${({ theme }) => theme.colors.LIGHT_GRAY};
-`;
-
-export const Audio = styled.audio`
-  width: 100%;
-`;
-
-interface Props {
-  $isCurrent: boolean;
-}
-
-export const Block = styled.p`
-  color: ${({ theme }) => theme.colors.TEXT};
-  width: fit-content;
-  border-radius: 4px;
-`;
-
-export const HighlightedSpan = styled.span<Props>`
-  background-color: ${({ $isCurrent, theme }) => ($isCurrent ? theme.colors.YELLOW : 'transparent')} 100%;
-  cursor: pointer;
-  padding: 2px;
-  border-radius: 4px;
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.BLUE};
-    cursor: pointer;
-  }
 `;
