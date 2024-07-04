@@ -26,12 +26,11 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "types": ["vite-plugin-svgr/client"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [".eslintrc.cjs", "commitlint.config.cjs", "vite.config.ts", ".prettierrc.cjs", "postcss.config.cjs", "src"],
+  "include": [".eslintrc.cjs", "commitlint.config.cjs", ".prettierrc.cjs", "postcss.config.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

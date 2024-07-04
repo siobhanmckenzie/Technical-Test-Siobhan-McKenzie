@@ -60,18 +60,12 @@ export const Block = styled.p`
 `;
 
 export const HighlightedSpan = styled.span<Props>`
-  background-position: top left;
-  background-size: 100% auto;
-  background-image: linear-gradient(
-    to top,
-    ${({ $isCurrent, theme }) => ($isCurrent ? theme.colors.YELLOW : 'transparent')} 100%,
-    transparent 0
-  );
+  background-color: ${({ $isCurrent, theme }) => ($isCurrent ? theme.colors.YELLOW : 'transparent')} 100%;
   cursor: pointer;
   padding: 2px;
   border-radius: 4px;
   &:hover {
-    background-image: linear-gradient(to top, ${({ theme }) => theme.colors.BLUE} 100%, transparent 0);
+    background-color: ${({ theme }) => theme.colors.BLUE};
     cursor: pointer;
   }
 `;

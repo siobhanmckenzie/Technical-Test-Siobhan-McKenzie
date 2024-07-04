@@ -4,7 +4,6 @@
     "foxundermoon.shell-format",
     "stylelint.vscode-stylelint",
     "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
     "syler.sass-indented"
   ]
 }

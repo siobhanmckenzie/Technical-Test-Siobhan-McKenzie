@@ -1,12 +1,15 @@
-import { useMatch } from '@tanstack/router';
+import { useParams } from '@tanstack/react-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import * as Styles from './Transcripts.styles';
 import useTranscript from './hooks/useTranscript';
-import { Block } from './types';
+import type { Block } from './types';
 
-const Transcripts = () => {
-  const match = useMatch({ from: '/transcripts/$id' });
-  const { id } = match.params as { id: string };
+function Transcripts() {
+  const id = useParams({
+    from: '/transcripts/$transcriptId',
+    select: (params) => params.transcriptId,
+  });
 
   const { transcript, loading, error } = useTranscript(id);
   const [currentTime, setCurrentTime] = useState(0);
@@ -38,14 +41,25 @@ const Transcripts = () => {
   }, []);
 
   if (loading) return <TranscriptsSkeleton />;
-  if (error) return <p>{error}</p>; // this should be caught be the router error boundary - probably shouldnt surface the error itself
+  if (error) return <p>{error}</p>;
 
   return (
     <Styles.Container>
       <Styles.TranscriptContainer>
         <h1>{transcript.title}</h1>
         {transcript.blocks.map((block: Block, index: number) => (
-          <Styles.Block key={index} onClick={() => handleBlockClick(block.start)}>
+          <Styles.Block
+            key={index}
+            onClick={() => handleBlockClick(block.start)}
+            tabIndex={0} // Make the block focusable
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                handleBlockClick(block.start);
+              }
+            }}
+            role="button"
+            aria-pressed={currentTime >= block.start && currentTime < block.end}
+          >
             <Styles.HighlightedSpan $isCurrent={currentTime >= block.start && currentTime < block.end}>{block.text}</Styles.HighlightedSpan>
           </Styles.Block>
         ))}
@@ -56,6 +70,7 @@ const Transcripts = () => {
             ref={audioRef}
             src={transcript.audioUrl}
             controls
+            aria-label={`Audio player for ${transcript.title}`}
             onTimeUpdate={() => {
               if (audioRef.current) {
                 setCurrentTime(audioRef.current.currentTime);
@@ -73,9 +88,9 @@ const Transcripts = () => {
       </Styles.AudioContainer>
     </Styles.Container>
   );
-};
+}
 
-const TranscriptsSkeleton = () => {
+function TranscriptsSkeleton() {
   return (
     <Styles.Container>
       <Styles.TranscriptSkeletonContainer>
@@ -88,6 +103,6 @@ const TranscriptsSkeleton = () => {
       </Styles.AudioContainer>
     </Styles.Container>
   );
-};
+}
 
 export default Transcripts;

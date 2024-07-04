@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Transcript } from '../types';
+import type { Transcript } from '../types';
 
 const useTranscript = (id: string) => {
-  const [transcript, setTranscript] = useState<Transcript>({ title: '', blocks: [], audioUrl: '' });
+  const [transcript, setTranscript] = useState<Transcript>({ audioUrl: '', blocks: [], title: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,13 +15,11 @@ const useTranscript = (id: string) => {
           setTranscript(data);
           setLoading(false);
         } else {
-          console.error('Invalid ID or fetch error');
-          setError('Invalid ID or fetch error');
+          setError('Sorry, we were unable to fetch that transcript. Please try another transcript, or contact support.'); // Note: should handle this better
           setLoading(false);
         }
       } catch (error) {
-        console.error('Error fetching transcript:', error);
-        setError('Error fetching transcript');
+        setError('Sorry, there has been an error fetching that transcript. Please try another transcript, or contact support.');
         setLoading(false);
       }
     };
@@ -31,7 +29,7 @@ const useTranscript = (id: string) => {
     }
   }, [id]);
 
-  return { transcript, loading, error };
+  return { error, loading, transcript };
 };
 
 export default useTranscript;
