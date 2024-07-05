@@ -6,6 +6,8 @@ const useTranscript = (id: string) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // if in prod - discuss caching and attaching this to the routing
+
   useEffect(() => {
     const fetchTranscript = async () => {
       try {

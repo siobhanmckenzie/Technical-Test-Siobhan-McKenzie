@@ -14,6 +14,7 @@ const AudioPlayerComponent = ({ transcript, audioRef, handleTimeUpdates, handleS
     <Styled.AudioContainer>
       {transcript.audioUrl ? (
         <Styled.Audio
+          tabIndex={1} // prioritise tabbing before transcript blocks - accessibility
           ref={audioRef}
           src={transcript.audioUrl}
           controls

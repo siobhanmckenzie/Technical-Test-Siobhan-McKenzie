@@ -41,7 +41,13 @@ const Transcripts = () => {
   }, []);
 
   if (loading) return <TranscriptsSkeleton />;
-  if (error) return <p>{error}</p>;
+  if (error)
+    return (
+      <p>
+        Sorry, we were unable to fetch that transcript. Please try again later, or{' '}
+        <a href="mailto:team@9fin.com">Click here to email 9fin support</a>
+      </p>
+    );
 
   return (
     <Styles.Container>

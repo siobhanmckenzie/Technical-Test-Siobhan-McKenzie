@@ -17,13 +17,12 @@ const TranscriptBlockComponent = ({ transcript, handleBlockClick, currentTime, a
         <Styled.Block
           key={index}
           onClick={() => handleBlockClick(block.start)}
-          tabIndex={0}
+          tabIndex={2} // allow tabbing - accessibility
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               handleBlockClick(block.start);
             }
           }}
-          role="button"
           aria-pressed={currentTime >= block.start && currentTime < block.end}
           ref={currentTime >= block.start && currentTime < block.end ? activeBlockRef : null}
         >
