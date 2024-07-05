@@ -32,6 +32,7 @@ There are a few design elements that were not fully implemented due to time-boxi
 - **Highlight Colour**: In the design, the highlight colour is smoothly wrapped around the text. In my implementation I have used a highlight approach that results in square corners when text wraps onto two lines.
 - **Multi-line Transcripts Indentation**: Did not comply with the indentation in the design for multi-line transcripts - subsequent lines in multi-line transcript block are not aligned as I used padding in my css.
 - **Scrollbar Design**: It's unclear if a specific scrollbar design was required, or if the scrollbar design in the figma was simply built-in. I would seek further clarification around whether the native scrollbar is acceptable.
+- **Scrolling behaviour**: The scrolling behaviour is not perfect - it doesn't always track to the correct location, and lags. If I continued working on this, I would look at improving the performance of scrolling. I would also look at implementing an intersection observer for performacne (check whether an element if already in the viewport before running the scrolling). I would also consider using a library to improve UX.
 
 ## Running the Challenge
 
