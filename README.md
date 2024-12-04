@@ -1,4 +1,4 @@
-# 9fin Transcript Technical Test Challenge - Siobhan McKenzie
+# Transcript Technical Test Challenge - Siobhan McKenzie
 
 ## Overview
 
